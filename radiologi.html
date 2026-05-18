@@ -12,49 +12,59 @@
     <div class="sidebar">
         <h2>SIMKES</h2>
         <a href="index.html">Dashboard</a>
-        <a class="active" href="pendaftaran.html">Pendaftaran</a>
+        <a href="pendaftaran.html">Pendaftaran</a>
         <a href="poli.html">Pemeriksaan Poli</a>
         <a href="farmasi.html">Farmasi</a>
-        <a href="radiologi.html">Radiologi</a>
-        <a href="laboratorium.html">Laboratorium</a>
         <a href="kasir.html">Kasir</a>
-        
-    
+        <a class="active" href="radiologi.html">Radiologi</a>
+        <a href="laboratorium.html">Laboratorium</a>
         <a href="login.html">Logout</a>
     </div>
+
     <div class="main">
 
         <div class="card">
-            <h2>Form Pendaftaran</h2>
-            <input placeholder="Nama Pasien">
+            <h2>Form Radiologi</h2>
+
+            <input type="text" placeholder="Nama Pasien">
+
             <select>
-                <option>Poli Umum</option>
-                <option>Poli Gigi</option>
+                <option value="">Pilih Pemeriksaan</option>
+                <option value="xray">X-Ray</option>
+                <option value="mri">MRI</option>
+                <option value="ctscan">CT Scan</option>
+                <option value="usg">USG</option>
             </select>
+
+            <textarea placeholder="Hasil Radiologi"></textarea>
+
             <br />
-            <button>Simpan</button>
+            <button>Simpan Hasil</button>
         </div>
 
         <div class="card">
-            <h2>List Pendaftaran</h2>
+            <h2>Data Radiologi</h2>
+
             <table>
                 <tr>
                     <th>No</th>
-                    <th>Nama</th>
-                    <th>Poli</th>
-                    <th>Status</th>
+                    <th>Nama Pasien</th>
+                    <th>Pemeriksaan</th>
+                    <th>Hasil</th>
                 </tr>
+
                 <tr>
                     <td>1</td>
-                    <td>Budi</td>
-                    <td>Umum</td>
-                    <td><span class="badge wait">Menunggu</span></td>
+                    <td>Andi</td>
+                    <td>X-Ray</td>
+                    <td>Tidak ditemukan kelainan</td>
                 </tr>
+
                 <tr>
                     <td>2</td>
                     <td>Siti</td>
-                    <td>Gigi</td>
-                    <td><span class="badge done">Selesai</span></td>
+                    <td>CT Scan</td>
+                    <td>Dalam pemeriksaan</td>
                 </tr>
             </table>
         </div>
