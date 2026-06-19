@@ -24,7 +24,6 @@
 
     <div class="main">
 
-        <!-- Form Pemeriksaan -->
         <div class="card">
             <h2>Pemeriksaan Poli</h2>
 
@@ -48,7 +47,6 @@
             </button>
         </div>
 
-        <!-- Tabel Antrian Poli -->
         <div class="card">
             <h2>Antrian Poli</h2>
 
@@ -60,6 +58,7 @@
                         <th>Diagnosa</th>
                         <th>Tindakan</th>
                         <th>Status</th>
+                        <th>Aksi</th>
                     </tr>
                 </thead>
 
@@ -74,6 +73,8 @@
     <script>
 
         let pemeriksaan = [];
+
+        let editIndex = -1;
 
         function simpanPemeriksaan() {
 
@@ -90,20 +91,47 @@
                 return;
             }
 
-            pemeriksaan.push({
-                nama: nama,
-                diagnosa: diagnosa,
-                tindakan: tindakan,
-                status: "Dipanggil"
-            });
+            if (editIndex === -1) {
+
+                pemeriksaan.push({
+                    nama: nama,
+                    diagnosa: diagnosa,
+                    tindakan: tindakan,
+                    status: "Dipanggil"
+                });
+
+                alert("Data Pemeriksaan Berhasil Disimpan");
+
+            } else {
+
+                pemeriksaan[editIndex].nama = nama;
+                pemeriksaan[editIndex].diagnosa = diagnosa;
+                pemeriksaan[editIndex].tindakan = tindakan;
+
+                alert("Data Pemeriksaan Berhasil Diupdate");
+
+                editIndex = -1;
+            }
 
             renderTable();
 
             document.getElementById("namaPasien").value = "";
             document.getElementById("diagnosa").value = "";
             document.getElementById("tindakan").value = "";
+        }
 
-            alert("Data Pemeriksaan Berhasil Disimpan");
+        function updatePemeriksaan(index) {
+
+            document.getElementById("namaPasien").value =
+                pemeriksaan[index].nama;
+
+            document.getElementById("diagnosa").value =
+                pemeriksaan[index].diagnosa;
+
+            document.getElementById("tindakan").value =
+                pemeriksaan[index].tindakan;
+
+            editIndex = index;
         }
 
         function renderTable() {
@@ -122,6 +150,11 @@
                             <span class="badge wait">
                                 ${item.status}
                             </span>
+                        </td>
+                        <td>
+                            <button onclick="updatePemeriksaan(${index})">
+                                Update
+                            </button>
                         </td>
                     </tr>
                 `;

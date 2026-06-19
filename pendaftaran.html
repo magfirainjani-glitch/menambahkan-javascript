@@ -9,6 +9,7 @@
 </head>
 
 <body>
+
     <div class="sidebar">
         <h2>SIMKES</h2>
         <a href="index.html">Dashboard</a>
@@ -48,10 +49,12 @@
                         <th>Nama</th>
                         <th>Poli</th>
                         <th>Status</th>
+                        <th>Aksi</th>
                     </tr>
                 </thead>
 
                 <tbody id="tPasien">
+
                 </tbody>
             </table>
         </div>
@@ -59,6 +62,7 @@
     </div>
 
     <script>
+
         let pasien = [
             {
                 nama: "Budi",
@@ -72,26 +76,66 @@
             }
         ]
 
+        let editIndex = -1
+
         const simpanPasien = () => {
+
             let nama = document.getElementById("namaPasien").value
             let poli = document.getElementById("poli").value
 
             if (nama) {
 
-                pasien.push({
-                    nama: nama,
-                    poli: poli,
-                    status: "Menunggu"
-                })
+                if (editIndex === -1) {
+
+                    pasien.push({
+                        nama: nama,
+                        poli: poli,
+                        status: "Menunggu"
+                    })
+
+                    alert("Data Berhasil Disimpan")
+
+                } else {
+
+                    pasien[editIndex].nama = nama
+                    pasien[editIndex].poli = poli
+
+                    alert("Data Berhasil Diupdate")
+
+                    editIndex = -1
+                }
 
                 renderTable()
 
                 document.getElementById("namaPasien").value = ""
-
-                alert("Data Berhasil Disimpan")
+                document.getElementById("poli").value = "Poli Umum"
 
             } else {
+
                 alert("Nama Pasien Wajib Diisi")
+            }
+        }
+
+        const editPasien = (index) => {
+
+            document.getElementById("namaPasien").value =
+                pasien[index].nama
+
+            document.getElementById("poli").value =
+                pasien[index].poli
+
+            editIndex = index
+        }
+
+        const hapusPasien = (index) => {
+
+            if (confirm("Yakin ingin menghapus data?")) {
+
+                pasien.splice(index, 1)
+
+                renderTable()
+
+                alert("Data Berhasil Dihapus")
             }
         }
 
@@ -115,6 +159,15 @@
                                 ${item.status}
                             </span>
                         </td>
+                        <td>
+                            <button onclick="editPasien(${index})">
+                                Update
+                            </button>
+
+                            <button onclick="hapusPasien(${index})">
+                                Hapus
+                            </button>
+                        </td>
                     </tr>
                 `
             })
@@ -123,8 +176,10 @@
         }
 
         renderTable()
+
     </script>
 
 </body>
 
 </html>
+

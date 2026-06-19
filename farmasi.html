@@ -59,6 +59,7 @@
                         <th>Pasien</th>
                         <th>Obat</th>
                         <th>Qty</th>
+                        <th>Aksi</th>
                     </tr>
                 </thead>
 
@@ -73,6 +74,8 @@
     <script>
 
         let resep = [];
+
+        let editIndex = -1;
 
         function tambahObat() {
 
@@ -89,19 +92,46 @@
                 return;
             }
 
-            resep.push({
-                nama: nama,
-                obat: obat,
-                jumlah: jumlah
-            });
+            if (editIndex === -1) {
+
+                resep.push({
+                    nama: nama,
+                    obat: obat,
+                    jumlah: jumlah
+                });
+
+                alert("Data Obat Berhasil Ditambahkan");
+
+            } else {
+
+                resep[editIndex].nama = nama;
+                resep[editIndex].obat = obat;
+                resep[editIndex].jumlah = jumlah;
+
+                alert("Data Obat Berhasil Diupdate");
+
+                editIndex = -1;
+            }
 
             renderTable();
 
             document.getElementById("namaPasien").value = "";
             document.getElementById("obat").value = "";
             document.getElementById("jumlah").value = "";
+        }
 
-            alert("Data Obat Berhasil Ditambahkan");
+        function updateObat(index) {
+
+            document.getElementById("namaPasien").value =
+                resep[index].nama;
+
+            document.getElementById("obat").value =
+                resep[index].obat;
+
+            document.getElementById("jumlah").value =
+                resep[index].jumlah;
+
+            editIndex = index;
         }
 
         function renderTable() {
@@ -116,6 +146,11 @@
                         <td>${item.nama}</td>
                         <td>${item.obat}</td>
                         <td>${item.jumlah}</td>
+                        <td>
+                            <button onclick="updateObat(${index})">
+                                Update
+                            </button>
+                        </td>
                     </tr>
                 `;
             });

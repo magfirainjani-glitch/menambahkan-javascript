@@ -54,6 +54,7 @@
                         <th>Pasien</th>
                         <th>Total</th>
                         <th>Status</th>
+                        <th>Aksi</th>
                     </tr>
                 </thead>
 
@@ -69,6 +70,8 @@
 
         let transaksi = [];
 
+        let editIndex = -1;
+
         function bayar() {
 
             let nama = document.getElementById("namaPasien").value;
@@ -79,18 +82,41 @@
                 return;
             }
 
-            transaksi.push({
-                nama: nama,
-                total: total,
-                status: "Lunas"
-            });
+            if (editIndex === -1) {
+
+                transaksi.push({
+                    nama: nama,
+                    total: total,
+                    status: "Lunas"
+                });
+
+                alert("Pembayaran Berhasil");
+
+            } else {
+
+                transaksi[editIndex].nama = nama;
+                transaksi[editIndex].total = total;
+
+                alert("Data Pembayaran Berhasil Diupdate");
+
+                editIndex = -1;
+            }
 
             renderTable();
 
             document.getElementById("namaPasien").value = "";
             document.getElementById("totalBayar").value = "";
+        }
 
-            alert("Pembayaran Berhasil");
+        function updateTransaksi(index) {
+
+            document.getElementById("namaPasien").value =
+                transaksi[index].nama;
+
+            document.getElementById("totalBayar").value =
+                transaksi[index].total;
+
+            editIndex = index;
         }
 
         function renderTable() {
@@ -108,6 +134,11 @@
                             <span class="badge done">
                                 ${item.status}
                             </span>
+                        </td>
+                        <td>
+                            <button onclick="updateTransaksi(${index})">
+                                Update
+                            </button>
                         </td>
                     </tr>
                 `;
