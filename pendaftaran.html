@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SIMKES</title>
+    <link rel="stylesheet" href="index.css" />
+</head>
+
+<body>
+    <div class="sidebar">
+        <h2>SIMKES</h2>
+        <a href="index.html">Dashboard</a>
+        <a class="active" href="pendaftaran.html">Pendaftaran</a>
+        <a href="poli.html">Pemeriksaan Poli</a>
+        <a href="farmasi.html">Farmasi</a>
+        <a href="radiologi.html">Radiologi</a>
+        <a href="laboratorium.html">Laboratorium</a>
+        <a href="kasir.html">Kasir</a>
+        <a href="login.html">Logout</a>
+    </div>
+
+    <div class="main">
+
+        <div class="card">
+            <h2>Form Pendaftaran</h2>
+
+            <input type="text" id="namaPasien" placeholder="Nama Pasien">
+
+            <select id="poli">
+                <option>Poli Umum</option>
+                <option>Poli Gigi</option>
+            </select>
+
+            <br><br>
+
+            <button onclick="simpanPasien()">Simpan</button>
+        </div>
+
+        <div class="card">
+            <h2>List Pendaftaran</h2>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>Nama</th>
+                        <th>Poli</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+
+                <tbody id="tPasien">
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
+    <script>
+        let pasien = [
+            {
+                nama: "Budi",
+                poli: "Poli Umum",
+                status: "Menunggu"
+            },
+            {
+                nama: "Siti",
+                poli: "Poli Gigi",
+                status: "Selesai"
+            }
+        ]
+
+        const simpanPasien = () => {
+            let nama = document.getElementById("namaPasien").value
+            let poli = document.getElementById("poli").value
+
+            if (nama) {
+
+                pasien.push({
+                    nama: nama,
+                    poli: poli,
+                    status: "Menunggu"
+                })
+
+                renderTable()
+
+                document.getElementById("namaPasien").value = ""
+
+                alert("Data Berhasil Disimpan")
+
+            } else {
+                alert("Nama Pasien Wajib Diisi")
+            }
+        }
+
+        const renderTable = () => {
+
+            let html = ""
+
+            pasien.forEach((item, index) => {
+
+                let badgeClass = item.status === "Selesai"
+                    ? "badge done"
+                    : "badge wait"
+
+                html += `
+                    <tr>
+                        <td>${index + 1}</td>
+                        <td>${item.nama}</td>
+                        <td>${item.poli}</td>
+                        <td>
+                            <span class="${badgeClass}">
+                                ${item.status}
+                            </span>
+                        </td>
+                    </tr>
+                `
+            })
+
+            document.getElementById("tPasien").innerHTML = html
+        }
+
+        renderTable()
+    </script>
+
+</body>
+
+</html>

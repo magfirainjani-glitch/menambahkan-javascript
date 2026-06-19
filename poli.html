@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SIMKES</title>
+    <link rel="stylesheet" href="index.css">
+</head>
+
+<body>
+
+    <div class="sidebar">
+        <h2>SIMKES</h2>
+        <a href="index.html">Dashboard</a>
+        <a href="pendaftaran.html">Pendaftaran</a>
+        <a class="active" href="poli.html">Pemeriksaan Poli</a>
+        <a href="farmasi.html">Farmasi</a>
+        <a href="radiologi.html">Radiologi</a>
+        <a href="laboratorium.html">Laboratorium</a>
+        <a href="kasir.html">Kasir</a>
+        <a href="login.html">Logout</a>
+    </div>
+
+    <div class="main">
+
+        <!-- Form Pemeriksaan -->
+        <div class="card">
+            <h2>Pemeriksaan Poli</h2>
+
+            <input
+                type="text"
+                id="namaPasien"
+                placeholder="Nama Pasien">
+
+            <input
+                type="text"
+                id="diagnosa"
+                placeholder="Diagnosa">
+
+            <input
+                type="text"
+                id="tindakan"
+                placeholder="Tindakan">
+
+            <button onclick="simpanPemeriksaan()">
+                Simpan Pemeriksaan
+            </button>
+        </div>
+
+        <!-- Tabel Antrian Poli -->
+        <div class="card">
+            <h2>Antrian Poli</h2>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>Nama Pasien</th>
+                        <th>Diagnosa</th>
+                        <th>Tindakan</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+
+                <tbody id="tantrian">
+
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
+    <script>
+
+        let pemeriksaan = [];
+
+        function simpanPemeriksaan() {
+
+            let nama = document.getElementById("namaPasien").value;
+            let diagnosa = document.getElementById("diagnosa").value;
+            let tindakan = document.getElementById("tindakan").value;
+
+            if (
+                nama.trim() === "" ||
+                diagnosa.trim() === "" ||
+                tindakan.trim() === ""
+            ) {
+                alert("Semua data harus diisi!");
+                return;
+            }
+
+            pemeriksaan.push({
+                nama: nama,
+                diagnosa: diagnosa,
+                tindakan: tindakan,
+                status: "Dipanggil"
+            });
+
+            renderTable();
+
+            document.getElementById("namaPasien").value = "";
+            document.getElementById("diagnosa").value = "";
+            document.getElementById("tindakan").value = "";
+
+            alert("Data Pemeriksaan Berhasil Disimpan");
+        }
+
+        function renderTable() {
+
+            let html = "";
+
+            pemeriksaan.forEach((item, index) => {
+
+                html += `
+                    <tr>
+                        <td>${index + 1}</td>
+                        <td>${item.nama}</td>
+                        <td>${item.diagnosa}</td>
+                        <td>${item.tindakan}</td>
+                        <td>
+                            <span class="badge wait">
+                                ${item.status}
+                            </span>
+                        </td>
+                    </tr>
+                `;
+            });
+
+            document.getElementById("tantrian").innerHTML = html;
+        }
+
+    </script>
+
+</body>
+
+</html>

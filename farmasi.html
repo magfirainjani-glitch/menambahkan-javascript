@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SIMKES</title>
+    <link rel="stylesheet" href="index.css">
+</head>
+
+<body>
+
+    <div class="sidebar">
+        <h2>SIMKES</h2>
+        <a href="index.html">Dashboard</a>
+        <a href="pendaftaran.html">Pendaftaran</a>
+        <a href="poli.html">Pemeriksaan Poli</a>
+        <a class="active" href="farmasi.html">Farmasi</a>
+        <a href="Radiologi.html">Radiologi</a>
+        <a href="laboratorium.html">Laboratorium</a>
+        <a href="kasir.html">Kasir</a>
+        <a href="login.html">Logout</a>
+    </div>
+
+    <div class="main">
+
+        <!-- Form Farmasi -->
+        <div class="card">
+            <h2>Resep & Farmasi</h2>
+
+            <input
+                type="text"
+                id="namaPasien"
+                placeholder="Nama Pasien">
+
+            <input
+                type="text"
+                id="obat"
+                placeholder="Nama Obat">
+
+            <input
+                type="number"
+                id="jumlah"
+                placeholder="Jumlah">
+
+            <button onclick="tambahObat()">
+                Tambah Obat
+            </button>
+        </div>
+
+        <!-- Tabel Resep -->
+        <div class="card">
+            <h2>Daftar Resep</h2>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>Pasien</th>
+                        <th>Obat</th>
+                        <th>Qty</th>
+                    </tr>
+                </thead>
+
+                <tbody id="tresep">
+
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
+    <script>
+
+        let resep = [];
+
+        function tambahObat() {
+
+            let nama = document.getElementById("namaPasien").value;
+            let obat = document.getElementById("obat").value;
+            let jumlah = document.getElementById("jumlah").value;
+
+            if (
+                nama.trim() === "" ||
+                obat.trim() === "" ||
+                jumlah === ""
+            ) {
+                alert("Semua data harus diisi!");
+                return;
+            }
+
+            resep.push({
+                nama: nama,
+                obat: obat,
+                jumlah: jumlah
+            });
+
+            renderTable();
+
+            document.getElementById("namaPasien").value = "";
+            document.getElementById("obat").value = "";
+            document.getElementById("jumlah").value = "";
+
+            alert("Data Obat Berhasil Ditambahkan");
+        }
+
+        function renderTable() {
+
+            let html = "";
+
+            resep.forEach((item, index) => {
+
+                html += `
+                    <tr>
+                        <td>${index + 1}</td>
+                        <td>${item.nama}</td>
+                        <td>${item.obat}</td>
+                        <td>${item.jumlah}</td>
+                    </tr>
+                `;
+            });
+
+            document.getElementById("tresep").innerHTML = html;
+        }
+
+    </script>
+
+</body>
+
+</html>

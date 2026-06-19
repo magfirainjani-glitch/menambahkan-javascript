@@ -1,0 +1,31 @@
+body {
+    margin: 0px;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #1e293b;
+}
+
+.card {
+    width: 40%;
+    border-radius: 12px;
+    background-color: #FFF;
+    padding: 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+input {
+    padding: 10px;
+}
+
+button {
+    background-color: #1e293b;
+    color: #FFF;
+    padding: 12px;
+}
