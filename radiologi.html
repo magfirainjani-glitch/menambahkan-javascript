@@ -24,6 +24,7 @@
 
     <div class="main">
 
+        <!-- Form Radiologi -->
         <div class="card">
             <h2>Radiologi</h2>
 
@@ -47,6 +48,7 @@
             </button>
         </div>
 
+        <!-- Tabel Radiologi -->
         <div class="card">
             <h2>Data Radiologi</h2>
 
@@ -132,6 +134,18 @@
             editIndex = index;
         }
 
+        function hapusRadiologi(index) {
+
+            if (confirm("Yakin ingin menghapus data radiologi?")) {
+
+                radiologi.splice(index, 1);
+
+                renderTable();
+
+                alert("Data Radiologi Berhasil Dihapus");
+            }
+        }
+
         function renderTable() {
 
             let html = "";
@@ -147,6 +161,10 @@
                         <td>
                             <button onclick="updateRadiologi(${index})">
                                 Update
+                            </button>
+
+                            <button onclick="hapusRadiologi(${index})">
+                                Hapus
                             </button>
                         </td>
                     </tr>

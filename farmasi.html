@@ -134,6 +134,18 @@
             editIndex = index;
         }
 
+        function hapusObat(index) {
+
+            if (confirm("Yakin ingin menghapus data obat?")) {
+
+                resep.splice(index, 1);
+
+                renderTable();
+
+                alert("Data Obat Berhasil Dihapus");
+            }
+        }
+
         function renderTable() {
 
             let html = "";
@@ -149,6 +161,10 @@
                         <td>
                             <button onclick="updateObat(${index})">
                                 Update
+                            </button>
+
+                            <button onclick="hapusObat(${index})">
+                                Hapus
                             </button>
                         </td>
                     </tr>

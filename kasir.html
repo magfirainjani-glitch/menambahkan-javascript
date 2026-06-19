@@ -119,6 +119,18 @@
             editIndex = index;
         }
 
+        function hapusTransaksi(index) {
+
+            if (confirm("Yakin ingin menghapus data transaksi?")) {
+
+                transaksi.splice(index, 1);
+
+                renderTable();
+
+                alert("Data Transaksi Berhasil Dihapus");
+            }
+        }
+
         function renderTable() {
 
             let html = "";
@@ -138,6 +150,10 @@
                         <td>
                             <button onclick="updateTransaksi(${index})">
                                 Update
+                            </button>
+
+                            <button onclick="hapusTransaksi(${index})">
+                                Hapus
                             </button>
                         </td>
                     </tr>

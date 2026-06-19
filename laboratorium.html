@@ -5,48 +5,175 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SIMKES</title>
-    <link rel="stylesheet" href="index.css" />
+    <link rel="stylesheet" href="index.css">
 </head>
 
 <body>
+
     <div class="sidebar">
         <h2>SIMKES</h2>
         <a href="index.html">Dashboard</a>
         <a href="pendaftaran.html">Pendaftaran</a>
         <a href="poli.html">Pemeriksaan Poli</a>
         <a href="farmasi.html">Farmasi</a>
-         <a href="Radiologi.html">Radiologi</a>
-        <a class="active" href="Laboratorium.html">Laboratorium</a>
+        <a href="radiologi.html">Radiologi</a>
+        <a class="active" href="laboratorium.html">Laboratorium</a>
         <a href="kasir.html">Kasir</a>
         <a href="login.html">Logout</a>
     </div>
+
     <div class="main">
 
         <div class="card">
             <h2>Laboratorium</h2>
-            <input placeholder="Nama Pasien">
-            <input placeholder="Hematologi">
-            <input placeholder="Hasil Laboratorium">
-            <button>Simpan Hasil</button>
+
+            <input
+                type="text"
+                id="namaPasien"
+                placeholder="Nama Pasien">
+
+            <input
+                type="text"
+                id="jenisTes"
+                placeholder="Jenis Tes">
+
+            <input
+                type="text"
+                id="hasilLab"
+                placeholder="Hasil Laboratorium">
+
+            <button onclick="simpanLab()">
+                Simpan Hasil
+            </button>
         </div>
 
         <div class="card">
-            <h2>Data Pemeriksaan Lab</h2>
+            <h2>Data Laboratorium</h2>
+
             <table>
-                <tr>
-                    <th>Pasien</th>
-                    <th>Pemeriksaan</th>
-                    <th>Hasil</th>
-                </tr>
-                <tr>
-                    <td>Siti</td>
-                    <td>Hematologi</td>
-                    <td>Normal</td>
-                </tr>
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>Pasien</th>
+                        <th>Jenis Tes</th>
+                        <th>Hasil</th>
+                        <th>Aksi</th>
+                    </tr>
+                </thead>
+
+                <tbody id="tlab">
+
+                </tbody>
             </table>
         </div>
 
     </div>
+
+    <script>
+
+        let laboratorium = [];
+
+        let editIndex = -1;
+
+        function simpanLab() {
+
+            let nama = document.getElementById("namaPasien").value;
+            let jenisTes = document.getElementById("jenisTes").value;
+            let hasilLab = document.getElementById("hasilLab").value;
+
+            if (
+                nama.trim() === "" ||
+                jenisTes.trim() === "" ||
+                hasilLab.trim() === ""
+            ) {
+                alert("Semua data harus diisi!");
+                return;
+            }
+
+            if (editIndex === -1) {
+
+                laboratorium.push({
+                    nama: nama,
+                    jenisTes: jenisTes,
+                    hasilLab: hasilLab
+                });
+
+                alert("Data Laboratorium Berhasil Disimpan");
+
+            } else {
+
+                laboratorium[editIndex].nama = nama;
+                laboratorium[editIndex].jenisTes = jenisTes;
+                laboratorium[editIndex].hasilLab = hasilLab;
+
+                alert("Data Laboratorium Berhasil Diupdate");
+
+                editIndex = -1;
+            }
+
+            renderTable();
+
+            document.getElementById("namaPasien").value = "";
+            document.getElementById("jenisTes").value = "";
+            document.getElementById("hasilLab").value = "";
+        }
+
+        function updateLab(index) {
+
+            document.getElementById("namaPasien").value =
+                laboratorium[index].nama;
+
+            document.getElementById("jenisTes").value =
+                laboratorium[index].jenisTes;
+
+            document.getElementById("hasilLab").value =
+                laboratorium[index].hasilLab;
+
+            editIndex = index;
+        }
+
+        function hapusLab(index) {
+
+            if (confirm("Yakin ingin menghapus data laboratorium?")) {
+
+                laboratorium.splice(index, 1);
+
+                renderTable();
+
+                alert("Data Laboratorium Berhasil Dihapus");
+            }
+        }
+
+        function renderTable() {
+
+            let html = "";
+
+            laboratorium.forEach((item, index) => {
+
+                html += `
+                    <tr>
+                        <td>${index + 1}</td>
+                        <td>${item.nama}</td>
+                        <td>${item.jenisTes}</td>
+                        <td>${item.hasilLab}</td>
+                        <td>
+                            <button onclick="updateLab(${index})">
+                                Update
+                            </button>
+
+                            <button onclick="hapusLab(${index})">
+                                Hapus
+                            </button>
+                        </td>
+                    </tr>
+                `;
+            });
+
+            document.getElementById("tlab").innerHTML = html;
+        }
+
+    </script>
+
 </body>
 
 </html>
