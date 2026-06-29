@@ -73,7 +73,9 @@
 
     <script>
 
-        let radiologi = [];
+    let radiologi = localStorage.getItem('radiologi')
+    ? JSON.parse(localStorage.getItem('radiologi'))
+    : [];
 
         let editIndex = -1;
 
@@ -99,7 +101,7 @@
                     pemeriksaan: pemeriksaan,
                     hasil: hasil
                 });
-
+            localStorage.setItem('radiologi', JSON.stringify(radiologi));
                 alert("Hasil Radiologi Berhasil Disimpan");
 
             } else {
@@ -107,6 +109,7 @@
                 radiologi[editIndex].nama = nama;
                 radiologi[editIndex].pemeriksaan = pemeriksaan;
                 radiologi[editIndex].hasil = hasil;
+            localStorage.setItem('radiologi', JSON.stringify(radiologi));
 
                 alert("Hasil Radiologi Berhasil Diupdate");
 
@@ -139,9 +142,8 @@
             if (confirm("Yakin ingin menghapus data radiologi?")) {
 
                 radiologi.splice(index, 1);
-
                 renderTable();
-
+            localStorage.setItem('radiologi', JSON.stringify(radiologi));
                 alert("Data Radiologi Berhasil Dihapus");
             }
         }
@@ -173,7 +175,7 @@
 
             document.getElementById("tradiologi").innerHTML = html;
         }
-
+    renderTable()
     </script>
 
 </body>

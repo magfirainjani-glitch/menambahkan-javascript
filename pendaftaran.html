@@ -63,20 +63,22 @@
 
     <script>
 
-        let pasien = [
-            {
-                nama: "Budi",
-                poli: "Poli Umum",
-                status: "Menunggu"
-            },
-            {
-                nama: "Siti",
-                poli: "Poli Gigi",
-                status: "Selesai"
-            }
-        ]
+    let pasien = localStorage.getItem('pasien')
+    ? JSON.parse(localStorage.getItem('pasien'))
+    : [
+        {
+            nama: "Budi",
+            poli: "Poli Umum",
+            status: "Menunggu"
+        },
+        {
+            nama: "Siti",
+            poli: "Poli Gigi",
+            status: "Selesai"
+        }
+    ]
 
-        let editIndex = -1
+    let editIndex = -1
 
         const simpanPasien = () => {
 
@@ -92,14 +94,14 @@
                         poli: poli,
                         status: "Menunggu"
                     })
-
+                    localStorage.setItem('pasien', JSON.stringify(pasien))
                     alert("Data Berhasil Disimpan")
 
                 } else {
 
                     pasien[editIndex].nama = nama
                     pasien[editIndex].poli = poli
-
+                localStorage.setItem('pasien', JSON.stringify(pasien))
                     alert("Data Berhasil Diupdate")
 
                     editIndex = -1
@@ -132,9 +134,8 @@
             if (confirm("Yakin ingin menghapus data?")) {
 
                 pasien.splice(index, 1)
-
+                localStorage.setItem('pasien', JSON.stringify(pasien))
                 renderTable()
-
                 alert("Data Berhasil Dihapus")
             }
         }

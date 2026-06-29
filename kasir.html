@@ -68,7 +68,9 @@
 
     <script>
 
-        let transaksi = [];
+        let transaksi = localStorage.getItem('transaksi')
+    ? JSON.parse(localStorage.getItem('transaksi'))
+    : [];
 
         let editIndex = -1;
 
@@ -89,14 +91,14 @@
                     total: total,
                     status: "Lunas"
                 });
-
+            localStorage.setItem('transaksi', JSON.stringify(transaksi));
                 alert("Pembayaran Berhasil");
 
             } else {
 
                 transaksi[editIndex].nama = nama;
                 transaksi[editIndex].total = total;
-
+                localStorage.setItem('transaksi', JSON.stringify(transaksi));
                 alert("Data Pembayaran Berhasil Diupdate");
 
                 editIndex = -1;
@@ -124,9 +126,8 @@
             if (confirm("Yakin ingin menghapus data transaksi?")) {
 
                 transaksi.splice(index, 1);
-
+                localStorage.setItem('transaksi', JSON.stringify(transaksi));
                 renderTable();
-
                 alert("Data Transaksi Berhasil Dihapus");
             }
         }
@@ -162,7 +163,7 @@
 
             document.getElementById("ttransaksi").innerHTML = html;
         }
-
+   renderTable()
     </script>
 
 </body>

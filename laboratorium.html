@@ -71,8 +71,9 @@
 
     <script>
 
-        let laboratorium = [];
-
+        let laboratorium = localStorage.getItem('laboratorium')
+    ? JSON.parse(localStorage.getItem('laboratorium'))
+    : [];
         let editIndex = -1;
 
         function simpanLab() {
@@ -97,7 +98,7 @@
                     jenisTes: jenisTes,
                     hasilLab: hasilLab
                 });
-
+            localStorage.setItem('laboratorium', JSON.stringify(laboratorium));
                 alert("Data Laboratorium Berhasil Disimpan");
 
             } else {
@@ -105,7 +106,7 @@
                 laboratorium[editIndex].nama = nama;
                 laboratorium[editIndex].jenisTes = jenisTes;
                 laboratorium[editIndex].hasilLab = hasilLab;
-
+            localStorage.setItem('laboratorium', JSON.stringify(laboratorium));
                 alert("Data Laboratorium Berhasil Diupdate");
 
                 editIndex = -1;
@@ -137,9 +138,8 @@
             if (confirm("Yakin ingin menghapus data laboratorium?")) {
 
                 laboratorium.splice(index, 1);
-
+            localStorage.setItem('laboratorium', JSON.stringify(laboratorium));
                 renderTable();
-
                 alert("Data Laboratorium Berhasil Dihapus");
             }
         }
@@ -171,7 +171,7 @@
 
             document.getElementById("tlab").innerHTML = html;
         }
-
+renderTable();
     </script>
 
 </body>

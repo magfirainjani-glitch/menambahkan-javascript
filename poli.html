@@ -74,7 +74,9 @@
 
     <script>
 
-        let pemeriksaan = [];
+    let pemeriksaan = localStorage.getItem('pemeriksaan')
+    ? JSON.parse(localStorage.getItem('pemeriksaan'))
+    : [];
 
         let editIndex = -1;
 
@@ -101,7 +103,7 @@
                     tindakan: tindakan,
                     status: "Dipanggil"
                 });
-
+localStorage.setItem('pemeriksaan', JSON.stringify(pemeriksaan));
                 alert("Data Pemeriksaan Berhasil Disimpan");
 
             } else {
@@ -109,9 +111,9 @@
                 pemeriksaan[editIndex].nama = nama;
                 pemeriksaan[editIndex].diagnosa = diagnosa;
                 pemeriksaan[editIndex].tindakan = tindakan;
-
+            localStorage.setItem('pemeriksaan', JSON.stringify(pemeriksaan));
                 alert("Data Pemeriksaan Berhasil Diupdate");
-
+            localStorage.setItem('pemeriksaan', JSON.stringify(pemeriksaan));
                 editIndex = -1;
             }
 
@@ -143,7 +145,7 @@
                 pemeriksaan.splice(index, 1);
 
                 renderTable();
-
+            localStorage.setItem('pemeriksaan', JSON.stringify(pemeriksaan));
                 alert("Data Pemeriksaan Berhasil Dihapus");
             }
         }
@@ -180,7 +182,7 @@
 
             document.getElementById("tantrian").innerHTML = html;
         }
-
+renderTable();
     </script>
 
 </body>

@@ -73,7 +73,9 @@
 
     <script>
 
-        let resep = [];
+        let resep = localStorage.getItem('resep')
+    ? JSON.parse(localStorage.getItem('resep'))
+    : [];
 
         let editIndex = -1;
 
@@ -99,7 +101,7 @@
                     obat: obat,
                     jumlah: jumlah
                 });
-
+            localStorage.setItem('resep', JSON.stringify(resep));
                 alert("Data Obat Berhasil Ditambahkan");
 
             } else {
@@ -139,9 +141,8 @@
             if (confirm("Yakin ingin menghapus data obat?")) {
 
                 resep.splice(index, 1);
-
+                localStorage.setItem('resep', JSON.stringify(resep));
                 renderTable();
-
                 alert("Data Obat Berhasil Dihapus");
             }
         }
@@ -173,7 +174,7 @@
 
             document.getElementById("tresep").innerHTML = html;
         }
-
+  renderTable()
     </script>
 
 </body>
